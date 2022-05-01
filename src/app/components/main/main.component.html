@@ -3,7 +3,7 @@
     <form class="main__form form">
       <div class="form__item">
         <select
-          [(ngModel)]="firstCurrencyTitle"
+          [(ngModel)]="currencyForm.first.title"
           name="firstCurrencyTitle"
           (ngModelChange)="updateInputs()"
           class="form__select"
@@ -14,8 +14,8 @@
         </select>
         <input
           type="number"
-          [(ngModel)]="firstCurrencyInputValue"
-          name="firstCurrencyInputValue"
+          [(ngModel)]="currencyForm.first.value"
+          name="firstCurrencyValue"
           (ngModelChange)="calcSecondValue()"
           autocomplete="off"
           placeholder="100.00"
@@ -25,7 +25,7 @@
       </div>
       <div class="form__item">
         <select
-          [(ngModel)]="secondCurrencyTitle"
+          [(ngModel)]="currencyForm.second.title"
           name="secondCurrencyTitle"
           (ngModelChange)="updateInputs()"
           class="form__select"
@@ -36,8 +36,8 @@
         </select>
         <input
           type="number"
-          [(ngModel)]="secondCurrencyInputValue"
-          name="secondCurrencyInputValue"
+          [(ngModel)]="currencyForm.second.value"
+          name="secondCurrencyValue"
           (ngModelChange)="calcFirstValue()"
           autocomplete="off"
           placeholder="100.00"

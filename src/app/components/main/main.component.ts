@@ -11,13 +11,18 @@ export class MainComponent implements OnInit {
   constructor(private httpService: HttpService) {}
   allCurrencies!: Currency[];
 
-  firstCurrencyTitle = 'USD';
-  secondCurrencyTitle = 'UAH';
+  currencyForm = {
+    first: {
+      title: 'USD',
+      value: '',
+    },
+    second: {
+      title: 'UAH',
+      value: '',
+    },
+  };
 
-  firstCurrencyInputValue!: string;
-  secondCurrencyInputValue!: string;
-
-  private currentInput!: 'firstCurrencyInputValue' | 'secondCurrencyInputValue';
+  private currentInput!: 'firstCurrencyValue' | 'secondCurrencyValue';
 
   ngOnInit(): void {
     this.httpService.getCurrentNBUData().subscribe((data) => {
@@ -42,38 +47,40 @@ export class MainComponent implements OnInit {
   private getCurrenciesRatio() {
     let firstCurrencyRate = 1;
     let secondCurrencyRate = 1;
-    if (this.firstCurrencyTitle !== 'UAH') {
-      firstCurrencyRate = this.defineCurrency(this.firstCurrencyTitle).rate;
+    if (this.currencyForm.first.title !== 'UAH') {
+      firstCurrencyRate = this.defineCurrency(
+        this.currencyForm.first.title
+      ).rate;
     }
-    if (this.secondCurrencyTitle !== 'UAH') {
-      secondCurrencyRate = this.defineCurrency(this.secondCurrencyTitle).rate;
+    if (this.currencyForm.second.title !== 'UAH') {
+      secondCurrencyRate = this.defineCurrency(
+        this.currencyForm.second.title
+      ).rate;
     }
     return firstCurrencyRate / secondCurrencyRate;
   }
 
   calcSecondValue() {
-    if (!this.firstCurrencyInputValue) {
-      this.secondCurrencyInputValue = '';
+    if (!this.currencyForm.first.value) {
+      this.currencyForm.second.value = '';
       return;
     }
-    this.secondCurrencyInputValue = `${(
-      Number(this.firstCurrencyInputValue) * this.getCurrenciesRatio()
+    this.currencyForm.second.value = `${(
+      Number(this.currencyForm.first.value) * this.getCurrenciesRatio()
     ).toFixed(2)}`;
   }
 
   calcFirstValue() {
-    if (!this.secondCurrencyInputValue) {
-      this.firstCurrencyInputValue = '';
+    if (!this.currencyForm.second.value) {
+      this.currencyForm.first.value = '';
       return;
     }
-    this.firstCurrencyInputValue = `${(
-      Number(this.secondCurrencyInputValue) / this.getCurrenciesRatio()
+    this.currencyForm.first.value = `${(
+      Number(this.currencyForm.second.value) / this.getCurrenciesRatio()
     ).toFixed(2)}`;
   }
 
   updateInputs() {
-    this.currentInput === 'firstCurrencyInputValue'
-      ? this.calcSecondValue()
-      : this.calcFirstValue();
+    this.currentInput === 'firstCurrencyValue' ? this.calcSecondValue() : this.calcFirstValue();
   }
 }
