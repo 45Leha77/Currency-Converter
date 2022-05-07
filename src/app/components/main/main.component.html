@@ -8,9 +8,7 @@
           (ngModelChange)="updateInputs()"
           class="form__select"
         >
-          <option value="USD">American dollar</option>
-          <option value="EUR">Euro</option>
-          <option value="UAH">Ukrainian hryvnia</option>
+          <option *ngFor="let currency of allCurrencies" value="{{currency.cc}}">{{currency.txt}}</option>
         </select>
         <input
           type="number"
@@ -20,7 +18,7 @@
           autocomplete="off"
           placeholder="100.00"
           class="form__number-input"
-          (focus)="setCurrentInput($event)"
+          (focus)="getCurrentInput($event)"
         />
       </div>
       <div class="form__item">
@@ -30,9 +28,8 @@
           (ngModelChange)="updateInputs()"
           class="form__select"
         >
-          <option value="UAH">Ukrainian hryvnia</option>
-          <option value="USD">American dollar</option>
-          <option value="EUR">Euro</option>
+          <option *ngFor="let currency of allCurrencies" value="{{currency.cc}}">{{currency.txt}}</option>
+          <option value="UAH">Українська гривня</option>
         </select>
         <input
           type="number"
@@ -42,7 +39,7 @@
           autocomplete="off"
           placeholder="100.00"
           class="form__number-input"
-          (focus)="setCurrentInput($event)"
+          (focus)="getCurrentInput($event)"
         />
       </div>
     </form>

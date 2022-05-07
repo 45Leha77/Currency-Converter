@@ -41,11 +41,11 @@
   }
   &__select,
   &__number-input {
-    padding: 35px 55px;
+    padding: 35px 45px;
     background-color: rgb(21, 21, 21);
     color: whitesmoke;
     border: none;
-    font-size: 30px;
+    font-size: 23px;
     border-radius: 5px;
     cursor: pointer;
     @media (any-hover: hover) {
@@ -54,16 +54,16 @@
       }
     }
     @media (max-width: 1000px) {
-      padding: 25px 40px;
-      font-size: 25px;
+      padding: 25px 30px;
+      font-size: 18px;
     }
     @media (max-width: 800px) {
-      padding: 15px 25px;
-      font-size: 25px;
+      padding: 15px 15px;
+      font-size: 18px;
     }
     @media (max-width: 450px) {
-      padding: 10px 15px;
-      font-size: 18px;
+      padding: 10px 10px;
+      font-size: 13px;
     }
   }
 }

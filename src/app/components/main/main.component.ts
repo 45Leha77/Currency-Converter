@@ -10,6 +10,15 @@ import { HttpService } from 'src/app/services/http.service';
 export class MainComponent implements OnInit {
   constructor(private httpService: HttpService) {}
   allCurrencies!: Currency[];
+  private currentInput!: string;
+  private getCurrencies() {
+    return this.httpService.getCurrentNBUData().subscribe((data) => {
+      this.allCurrencies = data;
+    });
+  }
+  ngOnInit(): void {
+    this.getCurrencies()
+  }
 
   currencyForm = {
     first: {
@@ -22,14 +31,6 @@ export class MainComponent implements OnInit {
     },
   };
 
-  private currentInput!: 'firstCurrencyValue' | 'secondCurrencyValue';
-
-  ngOnInit(): void {
-    this.httpService.getCurrentNBUData().subscribe((data) => {
-      this.allCurrencies = data;
-    });
-  }
-
   private defineCurrency(cc: string) {
     let targetCurrency = this.allCurrencies.find(
       (currency: Currency) => currency.cc === cc
@@ -40,8 +41,8 @@ export class MainComponent implements OnInit {
     return targetCurrency;
   }
 
-  setCurrentInput(event: any) {
-    return (this.currentInput = event.target.name);
+  getCurrentInput(event: Event) {
+    return (this.currentInput = (event.target as HTMLInputElement).name);
   }
 
   private getCurrenciesRatio() {
@@ -81,6 +82,8 @@ export class MainComponent implements OnInit {
   }
 
   updateInputs() {
-    this.currentInput === 'firstCurrencyValue' ? this.calcSecondValue() : this.calcFirstValue();
+    this.currentInput === 'firstCurrencyValue'
+      ? this.calcSecondValue()
+      : this.calcFirstValue();
   }
 }
